@@ -2,14 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package KELAS;
+package kelas;
 
-/**
- *
- * @author Santri IT
- */
 public class Category {
-
+    String category_name;
+    int category_id;
+    
     public String getCategory_name() {
         return category_name;
     }
@@ -25,6 +23,5 @@ public class Category {
     public void setCategory_id(int category_id) {
         this.category_id = category_id;
     }
-    String category_name;
-    int category_id;
+    
 }

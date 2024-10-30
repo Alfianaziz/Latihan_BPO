@@ -4,10 +4,6 @@
  */
 package kelas;
 
-/**
- *
- * @author Santri IT
- */
 public class Products {
     int product_id,product_price,product_cat_id;
     String product_name,product_desc;
