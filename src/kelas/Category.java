@@ -56,6 +56,7 @@ public class Category {
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal  Ditambahkan");
         }
+
     }
 
     public ResultSet tampilKategori() {
