@@ -1,8 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package tampilan;
+
+import java.lang.classfile.constantpool.LoadableConstantEntry;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import kelas.Category;
+import kelas.user;
 
 /**
  *
@@ -15,6 +18,62 @@ public class f_category extends javax.swing.JFrame {
      */
     public f_category() {
         initComponents();
+        loadTable();
+        reset();
+    }
+
+    void loadTable() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID KATEGORI");
+        model.addColumn("KATEGORI");
+
+        try {
+
+            Category cat = new Category();
+            ResultSet data = cat.tampilKategori();
+
+            while (data.next()) {
+                model.addRow(new Object[]{
+                    data.getString("category_id"),
+                    data.getString("category_name"),});
+
+            }
+
+        } catch (SQLException sQLException) {
+
+        // Handle exception
+        }
+
+        jCategori.setModel(model);
+
+    }
+
+    void reset() {
+        autoID();
+        tID.setEditable(false);
+        tCategory.setText(null);
+    }
+
+    void autoID() {
+        try {
+
+            Category cat = new Category();
+            ResultSet id = cat.autoID();
+
+            if (id.next()) {
+
+                int auto = id.getInt("ID") + 1;
+                tID.setText(String.valueOf(auto));
+            } else {
+
+                tID.setText("1");
+
+            }
+        } catch (SQLException sQLException) {
+
+// Handle exception
+        }
+
     }
 
     /**
@@ -26,21 +85,193 @@ public class f_category extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        bTambah = new javax.swing.JButton();
+        bUbah = new javax.swing.JButton();
+        bHapus = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jCategori = new javax.swing.JTable();
+        tID = new javax.swing.JTextField();
+        tCategory = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setText("ID");
+
+        jLabel2.setText("KATEGORY");
+
+        bTambah.setText("TAMBAH ");
+        bTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTambahActionPerformed(evt);
+            }
+        });
+
+        bUbah.setText("UBAH");
+        bUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUbahActionPerformed(evt);
+            }
+        });
+
+        bHapus.setText("HAPUS");
+        bHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bHapusActionPerformed(evt);
+            }
+        });
+
+        jCategori.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jCategori);
+
+        tCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tCategoryMouseClicked(evt);
+            }
+        });
+        tCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tCategoryActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("f_category");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bTambah)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bUbah)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bHapus))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tID)
+                                    .addComponent(tCategory))))
+                        .addGap(0, 38, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bTambah)
+                    .addComponent(bUbah)
+                    .addComponent(bHapus))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUbahActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            Category cat = new Category();
+            cat.setCategory_id(Integer.parseInt(tID.getText()));
+            cat.setCategory_name(tCategory.getText());
+            cat.ubahKategori();
+        } catch (SQLException sQLException) {
+
+            // Handle exception
+        }
+
+        reset();
+        loadTable();
+
+    }//GEN-LAST:event_bUbahActionPerformed
+
+    private void tCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCategoryMouseClicked
+        int baris = jCategori.rowAtPoint(evt.getPoint());
+        String username = jCategori.getValueAt(baris, 0).toString();
+        String nama = jCategori.getValueAt(baris, 1).toString();
+
+        tID.setText(username);
+        tID.setEditable(false);
+        tCategory.setText(nama);
+    }//GEN-LAST:event_tCategoryMouseClicked
+
+    private void tCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tCategoryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tCategoryActionPerformed
+
+    private void bHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            Category cat = new Category();
+            cat.setCategory_id(Integer.parseInt(tID.getText()));
+            cat.hapusKategori();
+        } catch (SQLException sQLException) {
+
+// Handle exception
+        }
+        reset();
+        loadTable();
+    }//GEN-LAST:event_bHapusActionPerformed
+
+    private void bTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTambahActionPerformed
+        try {
+
+            Category cat = new Category();
+            cat.setCategory_id(Integer.parseInt(tID.getText()));
+            cat.setCategory_name(tCategory.getText());
+
+            cat.tambahKategori();
+        } catch (SQLException sQLException) {
+
+// Handle exception
+        }
+
+        reset();
+        loadTable();
+    }//GEN-LAST:event_bTambahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +309,15 @@ public class f_category extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bHapus;
+    private javax.swing.JButton bTambah;
+    private javax.swing.JButton bUbah;
+    private javax.swing.JTable jCategori;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField tCategory;
+    private javax.swing.JTextField tID;
     // End of variables declaration//GEN-END:variables
 }
